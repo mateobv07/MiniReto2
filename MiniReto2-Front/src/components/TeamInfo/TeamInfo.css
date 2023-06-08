@@ -1,14 +1,18 @@
 .team-container {
+    cursor: pointer;
     margin: 50px;
     display: flex;
     background-color: #F2F3F5;
     border: 2px solid;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 3px rgba(0, 0, 0, 0.08);
     border-radius: 5px;
-    width: 600px;
+    width: 500px;
+    height: 300px;
+    overflow:hidden;
 }
 
 .team-text {
-    margin: 20px;
+    margin: 18px;
+    font-size: 12px;
     color: black;
 }

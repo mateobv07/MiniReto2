@@ -25,9 +25,18 @@ app.get("/api/equipos", (req, res) => {
   })
 });
 
-app.post("/api/pet", (req, res) => {
+app.post("/api/equipos", (req, res) => {
   console.log('El cuerpo de la peticion:', req.body);
 });
+
+app.patch("/api/equipos/:id", (req, res) => {
+  console.log('El cuerpo de la peticion:', req.body);
+});
+
+app.delete("/api/equipos/:id", (req, res) => {
+  console.log('El cuerpo de la peticion:', req.body);
+});
+
 
 app.listen(PORT, (error) =>{
     if(!error)
