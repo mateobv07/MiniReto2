@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [teamsInfo, setTeamsInfo] = useState([]);
-  const [showRankings, setShowRankings] = useState(false)
+  const [showRankings, setShowRankings] = useState(false);
   const [showTeamPopUp, setShowTeamPopUp] = useState(false);
   const [curTeam, setCurTeam] = useState({name:"", img: "", info:""});
   const teamsRanking = [{name: "test", id: 1}, {name: "test", id: 2}]
@@ -19,14 +19,58 @@ function App() {
     getTeams();
   }, []);
 
-  const editTeam = (team) => {
-    setCurTeam(team);
-    setShowTeamPopUp(true);
+  const editTeam = () => {
+    fetch("http://127.0.0.1:3000/api/equipos/"+curTeam.id, 
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: curTeam.name,
+        info: curTeam.info,
+        img: curTeam.img
+      })
+    })
+    .then(response => response.json())
+    .then((data) => {
+      getTeams();
+      setShowTeamPopUp(false);
+    });
   }
 
   const createTeam = () => {
-    setCurTeam({name:"", img: "", info:""});
-    setShowTeamPopUp(true);
+    fetch("http://127.0.0.1:3000/api/equipos", 
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: curTeam.name,
+        info: curTeam.info,
+        img: curTeam.img
+      })
+    })
+    .then(response => response.json())
+    .then((data) => {
+      getTeams();
+      setShowTeamPopUp(false);
+    });
+  }
+
+  const deleteTeam = () => {
+    fetch("http://127.0.0.1:3000/api/equipos/"+curTeam.id, 
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+    }})
+    .then(response => response.json())
+    .then((data) => {
+      getTeams();
+      setShowTeamPopUp(false);
+    });
   }
 
   const getTeams = () => {
@@ -50,12 +94,12 @@ function App() {
           !showRankings ? 
           <>
             <h1 className='ranking-title'>Lista de equipos</h1>
-            <Button variant="primary" onClick={createTeam}>
+            <Button variant="primary" onClick={() => (setCurTeam({name:"", img: "", info:""}), setShowTeamPopUp(true))}>
               Agregar Equipo
             </Button>
             <div className="teams-container">
               { teamsInfo.map((team) => (
-                <TeamInfo key={team.id} team={team} onClick={() => editTeam(team)}/>
+                <TeamInfo key={team.id} team={team} onClick={() => (setCurTeam(team), setShowTeamPopUp(true))}/>
               ))}
             </div>
           </>
@@ -63,9 +107,17 @@ function App() {
           <TeamRankings teams={[{name: "test", id: 1}, {name: "test", id: 2}]} />
         }    
       </div>
-      <AddTeamPopUp show={showTeamPopUp} setShowTeamPopUp={setShowTeamPopUp} team={curTeam} setCurTeam={setCurTeam}/>
+      <AddTeamPopUp 
+        show={showTeamPopUp} 
+        setShowTeamPopUp={setShowTeamPopUp} 
+        team={curTeam} 
+        setCurTeam={setCurTeam}
+        createTeam={createTeam}  
+        editTeam={editTeam}  
+        deleteTeam={deleteTeam}
+      />
     </>
   )
 }
 
-export default App
+export default App;

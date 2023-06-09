@@ -1,22 +1,14 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function AddTeamPopUp({show, setShowTeamPopUp, team, setCurTeam}) {
-
-  const updateTeam = () => {
-    console.log("Test update")
-  }
-
-  const createTeam = () => {
-    console.log(team.name)
-  }
+function AddTeamPopUp({show, setShowTeamPopUp, team, setCurTeam, createTeam, editTeam, deleteTeam}) {
 
   return (
       <Modal centered show={show} onHide={() => setShowTeamPopUp(false)}>
         <Modal.Header closeButton >
-          <Modal.Title>{team ? "Agregar equipo" : "Editar equipo"}</Modal.Title>
+          <Modal.Title>{!team.id ? "Agregar equipo" : "Editar equipo"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -51,11 +43,16 @@ function AddTeamPopUp({show, setShowTeamPopUp, team, setCurTeam}) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="primary" onClick={team.id ? editTeam : createTeam}>
+            {team.id ? "Update team" : "Add Team"}
+          </Button>
+          {team.id &&
+            <Button variant="danger" onClick={deleteTeam}>
+              Delete
+            </Button>
+          }
           <Button variant="secondary" onClick={() => setShowTeamPopUp(false)}>
             Close
-          </Button>
-          <Button variant="primary" onClick={team ? updateTeam : () => createTeam}>
-            {team ? "Update team" : "Add Team"}
           </Button>
         </Modal.Footer>
       </Modal>

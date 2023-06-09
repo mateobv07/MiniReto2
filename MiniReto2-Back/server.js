@@ -26,15 +26,53 @@ app.get("/api/equipos", (req, res) => {
 });
 
 app.post("/api/equipos", (req, res) => {
-  console.log('El cuerpo de la peticion:', req.body);
+  const { name, info, img } = req.body;
+
+  if(!name || !info || !img) return res.status(400).json("invalid body");
+
+  db('Equipos')
+      .insert(
+      {name, info, img},
+      ).then(equipo => {
+          res.status(201).json(equipo);
+      }).catch(err => {
+          res.status(500).json({ "message": 'Unable to add team'});
+      });
 });
 
 app.patch("/api/equipos/:id", (req, res) => {
-  console.log('El cuerpo de la peticion:', req.body);
+  const { id } = req.params;
+  const { name, info, img } = req.body;
+
+  if(!name || !info || !img) return res.status(400).json("invalid body");
+
+  db('Equipos')
+      .where('id', id)
+      .update({name, info, img})
+      .then(equipo => {
+          if (equipo) {
+              return res.status(200).json({"message": "Updated successfully"});
+          }
+          res.status(400).json({"message": "Team ID does not exist"});
+      }).catch(err => {
+          res.status(500).json({"message": "Unable to update team", "error":err.sqlMessage});
+      });
 });
 
 app.delete("/api/equipos/:id", (req, res) => {
-  console.log('El cuerpo de la peticion:', req.body);
+  const { id } = req.params;
+
+  db('Equipos')
+      .where('id', id)
+      .del()
+      .then(comment => {
+          if (comment) {
+              return res.status(200).json("Deleted successfully");
+          }
+          res.status(400).json({"message": "Team ID does not exist"});
+      }).catch(err => {
+          res.status(500).json({"message": "Unable to delete team"});
+      });
 });
 
 
