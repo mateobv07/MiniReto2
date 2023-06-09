@@ -9,14 +9,13 @@ app.use(bodyParser.json());
 var cors = require('cors')
 app.use(cors())
 
-
 const db = require('knex')({
   client: 'mysql2',
   connection: {
-    host : '127.0.0.1',
-    port : 3306,
-    user : 'root',
-    database : 'miniReto'
+    host : 'us-cdbr-east-06.cleardb.net',
+    user : 'b16d4e3abd038c',
+    password: '0de20fbf',
+    database : 'heroku_45421c123dd3e2a'
   }
 });
 
