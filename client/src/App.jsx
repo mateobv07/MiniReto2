@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const editTeam = () => {
-    fetch(import.meta.env.VITE_API_URL + "api/equipos/"+curTeam.id, 
+    fetch("api/equipos/"+curTeam.id, 
     {
       method: 'PATCH',
       headers: {
@@ -43,7 +43,7 @@ function App() {
   }
 
   const createTeam = () => {
-    fetch(import.meta.env.VITE_API_URL + "api/equipos", 
+    fetch("api/equipos", 
     {
       method: 'POST',
       headers: {
@@ -63,7 +63,7 @@ function App() {
   }
 
   const deleteTeam = () => {
-    fetch(import.meta.env.VITE_API_URL + "api/equipos/"+curTeam.id, 
+    fetch("api/equipos/"+curTeam.id, 
     {
       method: 'DELETE',
       headers: {
@@ -77,7 +77,7 @@ function App() {
   }
 
   const getTeams = () => {
-    fetch(import.meta.env.VITE_API_URL + "api/equipos", {
+    fetch("api/equipos", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ function App() {
   }
 
   const getRankings = () => {
-    fetch(import.meta.env.VITE_API_URL + "api/rankings", {
+    fetch( "api/rankings", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
