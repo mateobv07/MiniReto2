@@ -14,6 +14,7 @@ const db = require('knex')({
   connection: {
     host : 'us-cdbr-east-06.cleardb.net',
     user : 'b16d4e3abd038c',
+    port : 3306,
     password: '0de20fbf',
     database : 'heroku_45421c123dd3e2a'
   }
