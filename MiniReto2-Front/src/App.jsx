@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './App.css'
 import TeamInfo from './components/TeamInfo/TeamInfo'
 import NavBar from './components/NavBar/NavBar'
@@ -13,7 +16,7 @@ function App() {
   const [showRankings, setShowRankings] = useState(false);
   const [showTeamPopUp, setShowTeamPopUp] = useState(false);
   const [curTeam, setCurTeam] = useState({name:"", img: "", info:""});
-  const teamsRanking = [{name: "test", id: 1}, {name: "test", id: 2}]
+  const [teamsRanking, setTeamsRanking] = useState([]);
 
   useEffect(() => {
     getTeams();
@@ -26,11 +29,11 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: curTeam.name,
-        info: curTeam.info,
-        img: curTeam.img
-      })
+        body: JSON.stringify({
+          name: curTeam.name,
+          info: curTeam.info,
+          img: curTeam.img
+        })
     })
     .then(response => response.json())
     .then((data) => {
@@ -82,13 +85,26 @@ function App() {
     })
     .then(response => response.json())
     .then((data) => {
-      setTeamsInfo(data) 
+      setTeamsInfo(data);
+    });
+  }
+
+  const getRankings = () => {
+    fetch("http://127.0.0.1:3000/api/rankings", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then((data) => {
+      setTeamsRanking(data) ;
     });
   }
 
   return (
     <>
-      <NavBar setShowRankings={setShowRankings}/>
+      <NavBar setShowRankings={setShowRankings} getRankings={getRankings}/>
       <div className="main-container">
         {
           !showRankings ? 
@@ -97,14 +113,18 @@ function App() {
             <Button variant="primary" onClick={() => (setCurTeam({name:"", img: "", info:""}), setShowTeamPopUp(true))}>
               Agregar Equipo
             </Button>
-            <div className="teams-container">
-              { teamsInfo.map((team) => (
-                <TeamInfo key={team.id} team={team} onClick={() => (setCurTeam(team), setShowTeamPopUp(true))}/>
-              ))}
-            </div>
+              <Container fluid='true'>
+                <Row className="justify-content-center">
+                  { teamsInfo.map((team) => (
+                    <Col xs={11} md={4} key={team.id}>
+                      <TeamInfo  team={team} onClick={() => (setCurTeam(team), setShowTeamPopUp(true))}/>
+                      </Col>
+                  ))}
+                </Row>
+              </Container>
           </>
           :
-          <TeamRankings teams={[{name: "test", id: 1}, {name: "test", id: 2}]} />
+          <TeamRankings teams={teamsRanking} />
         }    
       </div>
       <AddTeamPopUp 

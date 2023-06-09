@@ -3,14 +3,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
 
-function NavBar({setShowRankings}) {
+function NavBar({setShowRankings, getRankings}) {
     return (
         <Navbar bg="dark" variant="dark" fixed="top">
             <Container>
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Navbar.Brand>SuperFutbol</Navbar.Brand>
             <Nav className="me-auto">
-                <Nav.Link onClick={() => setShowRankings(false)}>Home</Nav.Link>
-                <Nav.Link onClick={() => setShowRankings(true)}>Ranking</Nav.Link>
+                <Nav.Link onClick={() => (setShowRankings(false), getRankings())}>Home</Nav.Link>
+                <Nav.Link onClick={() => (setShowRankings(true), getRankings())}>Ranking</Nav.Link>
             </Nav>
             </Container>
         </Navbar>

@@ -75,6 +75,11 @@ app.delete("/api/equipos/:id", (req, res) => {
       });
 });
 
+app.get("/api/rankings", (req, res) => {
+  db.select('*').from('Rankings').then((equipos) => {
+    res.status(200).json(equipos)
+  })
+});
 
 app.listen(PORT, (error) =>{
     if(!error)
