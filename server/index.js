@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 var cors = require('cors')
 app.use(cors())
 
+
 const db = require('knex')({
   client: 'mysql2',
   connection: {
@@ -79,6 +80,15 @@ app.get("/api/rankings", (req, res) => {
   db.select('*').from('Rankings').then((equipos) => {
     res.status(200).json(equipos)
   })
+});
+
+
+const path = require('path');
+
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+app.get('*', (req, res) => {
+res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, (error) =>{
