@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const editTeam = () => {
-    fetch("http://127.0.0.1:3000/api/equipos/"+curTeam.id, 
+    fetch("https://mini-reto2.herokuapp.com/api/equipos/"+curTeam.id, 
     {
       method: 'PATCH',
       headers: {
@@ -43,7 +43,7 @@ function App() {
   }
 
   const createTeam = () => {
-    fetch("http://127.0.0.1:3000/api/equipos", 
+    fetch("https://mini-reto2.herokuapp.com/api/equipos", 
     {
       method: 'POST',
       headers: {
@@ -63,7 +63,7 @@ function App() {
   }
 
   const deleteTeam = () => {
-    fetch("http://127.0.0.1:3000/api/equipos/"+curTeam.id, 
+    fetch("https://mini-reto2.herokuapp.com/api/equipos/"+curTeam.id, 
     {
       method: 'DELETE',
       headers: {
@@ -77,7 +77,7 @@ function App() {
   }
 
   const getTeams = () => {
-    fetch("http://127.0.0.1:3000/api/equipos", {
+    fetch("https://mini-reto2.herokuapp.com/api/equipos", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ function App() {
   }
 
   const getRankings = () => {
-    fetch("http://127.0.0.1:3000/api/rankings", {
+    fetch("https://mini-reto2.herokuapp.com/api/rankings", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

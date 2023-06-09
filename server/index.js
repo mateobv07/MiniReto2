@@ -4,6 +4,7 @@ const fs = require("fs");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const path = require('path');
 
 app.use(bodyParser.json());
 var cors = require('cors')
@@ -82,13 +83,10 @@ app.get("/api/rankings", (req, res) => {
   })
 });
 
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-const path = require('path');
-
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-app.get('*', (req, res) => {
-res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, (error) =>{
