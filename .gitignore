@@ -35,6 +35,7 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
+.env
 
 # Dependency directories
 node_modules/

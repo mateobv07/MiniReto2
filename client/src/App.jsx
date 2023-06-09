@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const editTeam = () => {
-    fetch("https://mini-reto2.herokuapp.com/api/equipos/"+curTeam.id, 
+    fetch(import.meta.env.VITE_API_URL + "api/equipos/"+curTeam.id, 
     {
       method: 'PATCH',
       headers: {
@@ -43,7 +43,7 @@ function App() {
   }
 
   const createTeam = () => {
-    fetch("https://mini-reto2.herokuapp.com/api/equipos", 
+    fetch(import.meta.env.VITE_API_URL + "api/equipos", 
     {
       method: 'POST',
       headers: {
@@ -63,7 +63,7 @@ function App() {
   }
 
   const deleteTeam = () => {
-    fetch("https://mini-reto2.herokuapp.com/api/equipos/"+curTeam.id, 
+    fetch(import.meta.env.VITE_API_URL + "api/equipos/"+curTeam.id, 
     {
       method: 'DELETE',
       headers: {
@@ -77,7 +77,7 @@ function App() {
   }
 
   const getTeams = () => {
-    fetch("https://mini-reto2.herokuapp.com/api/equipos", {
+    fetch(import.meta.env.VITE_API_URL + "api/equipos", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ function App() {
   }
 
   const getRankings = () => {
-    fetch("https://mini-reto2.herokuapp.com/api/rankings", {
+    fetch(import.meta.env.VITE_API_URL + "api/rankings", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
