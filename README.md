@@ -3,7 +3,7 @@
 Live Demo: https://mini-reto2.herokuapp.com/
 
 Sart Localhost API:
- - create .env follwoing .env.example
+ - create .env following .env.example
  - npm start
 
 Start Localhost front end
